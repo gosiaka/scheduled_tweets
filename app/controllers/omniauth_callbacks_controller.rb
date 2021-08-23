@@ -1,4 +1,5 @@
 class OmniauthCallbacksController < ApplicationController
+
   def twitter
     Rails.logger.info auth   # print out info in Rails logs
 
@@ -11,7 +12,7 @@ class OmniauthCallbacksController < ApplicationController
       secret: auth.credentials.secret,
     )
 
-    redirect_to root_path, notice: "Successfully connected your account"
+    redirect_to twitter_accounts_path, notice: "Successfully connected your account"
   end
 
   def auth
