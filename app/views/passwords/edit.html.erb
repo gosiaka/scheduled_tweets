@@ -1,13 +1,7 @@
 <h1>Edit Password</h1>
 
 <%= form_with model: Current.user, url: edit_password_path do |f| %>
-  <% if f.object.errors.any? %>
-    <div class="alert alert-danger">
-      <% f.object.errors.full_messages.each do |msg| %>
-        <div><%= msg %></div>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', f: f %>
 
   <div class="mb-3">
     <%= f.label :password %>
