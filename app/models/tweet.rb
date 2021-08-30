@@ -9,6 +9,17 @@ class Tweet < ApplicationRecord
     self.publish_at ||= 24.hours.from_now
   end
 
+  # callback called after create and update actions (after saving new/updated tweet) in tweets_controller.rb:
+  after_save_commit do
+    if publish_at_previously_changed?
+      # nie działa, dlaczego?
+      # TweetJob.set(wait_until: @tweet.publish_at).perform_later(@tweet)
+      # inside of model we can use:
+      TweetJob.set(wait_until: publish_at).perform_later(self)
+    end
+  end
+
+
   def published?
     tweet_id?
   end
